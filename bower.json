@@ -1,0 +1,12 @@
+{
+  "name": "jquery-photoplus",
+  "version": "0.0.3",
+  "main": "jquery.photoplus.js",
+  "dependencies": {
+    "jquery": null
+  },
+  "ignore": [
+    "package.json",
+    "README.md"
+  ]
+}
