@@ -1,6 +1,6 @@
 {
   "name": "jquery-photoplus",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "jquery.photoplus.js",
   "dependencies": {
     "jquery": null

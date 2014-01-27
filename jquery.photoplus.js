@@ -1,6 +1,5 @@
 define(['jquery'], function ($) {
 
-    (function ($) {
         $.fn.photoplus = function () {
             var Slide = {
                 sliders:{},
@@ -94,6 +93,4 @@ define(['jquery'], function ($) {
                 $(this).find('.scroll_image_counter').html('1/' + image_paths['photo_urls'].length);
             });
         };
-    })(jQuery);
 });
-/* 2012-04-26 11:13:21 -0400 */
