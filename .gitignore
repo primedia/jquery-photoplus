@@ -1,0 +1,3 @@
+.bundle/
+spec/javascripts/jquery.photoplus.js
+spec/javascripts/vendor/

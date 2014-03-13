@@ -3,10 +3,13 @@
   "version": "0.0.4",
   "main": "jquery.photoplus.js",
   "dependencies": {
-    "jquery": null
+    "jquery": null,
+    "jasmine": "~2.0.0",
+    "requirejs": "~2.1.11"
   },
   "ignore": [
     "package.json",
-    "README.md"
+    "README.md",
+    "spec/"
   ]
 }

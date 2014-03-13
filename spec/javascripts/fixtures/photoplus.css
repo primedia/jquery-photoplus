@@ -1,0 +1,184 @@
+body {
+  background: url("bkg_texture3.png") whitesmoke;
+  font-family: Tahoma, Geneva, sans-serif;
+  color: #333; }
+
+.sprite {
+  background-image: url("sprite.png");
+  background-repeat: no-repeat; }
+
+.icon_arrow_east_white {
+  background-position: -70px -84px;
+  height: 14px;
+  width: 10px;
+  display: inline-block;
+  zoom: 1;
+  *display:inline; }
+
+.icon_arrow_west_white {
+  background-position: -61px -84px;
+  height: 14px;
+  width: 10px;
+  display: inline-block;
+  zoom: 1;
+  *display:inline; }
+
+
+.photoplus, .property_photo .photo, .spotlight_apartment .photo {
+  border: 3px solid white;
+  box-shadow: 1px 1px 3px #CCC;
+  left: -3px;
+  top: 0;
+  position: relative;
+  width: 140px;
+  height: 110px;
+  opacity: .9;
+  filter: alpha(opacity=90); }
+
+.result:hover .photoplus, .result:hover .property_photo .photo, .result:hover .spotlight_apartment .photo {
+  opacity: 1;
+  filter: alpha(opacity=100); }
+
+.scroll_controls {
+  position: absolute;
+  background: #1A1A1A;
+  height: 18px;
+  width: 100%;
+  display: block;
+  z-index: 2;
+  left: 0;
+  bottom: 0;
+  opacity: .7;
+  filter: alpha(opacity=70);
+  border-top: 1px solid #F2F2F2;
+  color: white;
+  font-size: 10px;
+  text-align: center; }
+
+.scroll_image_counter {
+  padding: 3px 0 0 0; }
+
+.scroll_controls:hover, .photoplus .icon_arrow_east_white:hover, .photoplus .icon_arrow_west_white:hover {
+  opacity: 1;
+  filter: alpha(opacity=100); }
+
+.photoplus .icon_arrow_east_white {
+  position: absolute;
+  right: 5px;
+  bottom: 2px;
+  opacity: .8;
+  filter: alpha(opacity=80);
+  cursor: pointer; }
+
+.photoplus .icon_arrow_west_white {
+  position: absolute;
+  left: 5px;
+  bottom: 2px;
+  opacity: .8;
+  filter: alpha(opacity=80);
+  cursor: pointer; }
+
+div.scrollWrapper {
+  position: relative;
+  overflow: hidden;
+  width: 140px;
+  height: 110px; }
+
+div.scrollableArea {
+  position: relative;
+  height: 100%; }
+
+.scrollableArea img {
+  position: relative;
+  float: left;
+  margin: 0;
+  right: 0;
+  width: 140px;
+  height: 110px; }
+
+.link_icon_photos {
+  height: 22px;
+  width: 22px;
+  background: black;
+  border-bottom: 1px solid white;
+  border-left: 1px solid white;
+  display: block;
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  top: 3px;
+  opacity: .7;
+  filter: alpha(opacity=70);
+  cursor: pointer; }
+
+.link_icon_photos:hover {
+  opacity: 1;
+  filter: alpha(opacity=100); }
+
+.result, #map #hybrid_list .result {
+  border-top: 1px solid #e9e9e9;
+  border-right: 1px solid #d0d0d0;
+  border-left: 1px solid #d0d0d0;
+  padding: 24px 19px 8px;
+  position: relative;
+  min-height: 120px;
+  overflow: visible;
+  background: -moz-linear-gradient(left, rgba(250, 250, 250, 0) 0%, #fafafa 100%);
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(250, 250, 250, 0)), color-stop(100%, #fafafa));
+  background: -webkit-linear-gradient(left, rgba(250, 250, 250, 0) 0%, #fafafa 100%);
+  background: -o-linear-gradient(left, rgba(250, 250, 250, 0) 0%, #fafafa 100%);
+  background: -ms-linear-gradient(left, rgba(250, 250, 250, 0) 0%, #fafafa 100%);
+  background: linear-gradient(left, rgba(250, 250, 250, 0) 0%, #fafafa 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00fafafa', endColorstr='#fafafa',GradientType=1 ); }
+
+.result:hover, #map #hybrid_list .result:hover {
+  background: #fff; }
+
+.result:hover h3 a {
+  color: #027ac2; }
+
+.result:hover .phone_number {
+  color: #027ac2; }
+
+.result .column1 {
+  padding: 0;
+  width: 140px;
+  position: relative; }
+
+.result .column2 {
+  width: 458px;
+  padding: 0 0 0 10px; }
+
+.result li {
+  margin: 0 0 5px; }
+
+.result h3 {
+  margin: 0 0 5px; }
+
+.result .current_rent_specials {
+  font-weight: bold;
+  font-size: 13px; }
+
+.current_rent_specials a {
+  text-decoration: underline; }
+
+.result .button_box {
+  position: absolute;
+  right: 20px;
+  bottom: 20px; }
+
+.result .button, .spotlight_apartment .button.btn_blue {
+  font-size: 15px;
+  line-height: 30px;
+  height: 30px;
+  padding: 0 15px;
+  font-weight: bold;
+  border-radius: 3px; }
+
+.result .area {
+  font-size: 11px;
+  position: absolute;
+  left: 20px;
+  top: 6px;
+  margin: 0;
+  color: #999; }
