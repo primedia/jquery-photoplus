@@ -1,4 +1,4 @@
-describe "photoplus", ['jquery', 'jasmine', 'jasmine-jquery', 'photoplus'], ($) ->
+describe "photoplus", ['jquery', 'jasmine', 'jasmine-jquery', 'jquery.photoplus'], ($) ->
 
   beforeEach ->
     loadFixtures "../../../fixtures/photoplus.html"

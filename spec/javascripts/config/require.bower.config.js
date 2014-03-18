@@ -7,9 +7,11 @@ require.config({
   },
   paths: {
     "jquery" : "vendor/bower/jquery/jquery",
+    "flight" : "vendor/bower/flight",
     "jasmine" : "vendor/bower/jasmine/lib/jasmine-core/jasmine",
     "jasmine-jquery" : "vendor/jasmine-jquery",
     "jasmine-flight" : "vendor/jasmine-flight",
-    "photoplus" : "jquery.photoplus"
+    "jquery.photoplus" : "jquery.photoplus",
+    "lib/photoplus" : "photoplus"
   }
 });
