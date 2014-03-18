@@ -1,0 +1,5 @@
+.bundle/
+node_modules
+spec/*.js
+spec/javascripts/*.js
+spec/javascripts/vendor/
