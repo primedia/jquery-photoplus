@@ -25,6 +25,8 @@ define [
     @setupGallery = ->
       @select('imageCounterSelector').html(@imageCount())
       $gallery = @select('gallerySelector')
+      $gallery.width(@total * @imageWidth);
+
       $(@paths).each (index, path) =>
         html = "<a href='#{@href}'>"
         html += "<img src='http://image.apartmentguide.com#{path}' "
@@ -37,28 +39,29 @@ define [
     @next = ->
       image = @current()
       unless image == @total()
-        @browse('right')
-        @current(image+1)
-        @select('imageCounterSelector').html(@imageCount())
+        @browse 'right', =>
+          @current(image+1)
+          @select('imageCounterSelector').html(@imageCount())
 
     @previous = ->
       image = @current()
       unless image == 1
-        @browse('left')
-        @current(image-1)
-        @select('imageCounterSelector').html(@imageCount())
+        @browse 'left', =>
+          @current(image-1)
+          @select('imageCounterSelector').html(@imageCount())
 
-    @browse = (direction) ->
-      options = switch direction
-                when 'left'
-                  right: "-=#{@image_width}px"
-                else
-                  right: "+=#{@image_width}px"
-      @processing = true
-      @select('gallerySelector').animate options, 400, ->
-        @processing = false;
+    @browse = (direction, cb) ->
+      unless @processing
+        @processing = true
+        options = switch direction
+                  when 'left'
+                    right: "-=#{@imageWidth}px"
+                  else
+                    right: "+=#{@imageWidth}px"
 
-
+        @select('gallerySelector').animate options, 400, =>
+          @processing = false
+          cb()
 
     @after 'initialize', ->
       @data          = @$node.data('photoplus')
@@ -67,6 +70,7 @@ define [
       @imageWidth    = @$node.width()
       @photoplusId   = @$node.attr('id')
       @resultId      = @$node.closest('.result').attr('id')
+
 
       @$node.closest('.result').on 'mouseenter', =>
         @setupGallery()
