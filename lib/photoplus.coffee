@@ -16,32 +16,33 @@ define [
       currentImage         : 1
 
     @current = (image = @attr.currentImage) ->
-      @currentImage ||= image
+      @attr.currentImage = 0 if @total() == 0
+      @attr.currentImage = image
 
     @total = ->
       @paths.length
 
     @setupGallery = ->
+      @select('imageCounterSelector').html(@imageCount())
       $gallery = @select('gallerySelector')
-      $(@paths).each ->
+      $(@paths).each (index, path) =>
         html = "<a href='#{@href}'>"
-        html += "<img src='http://image.apartmentguide.com#{this}' "
+        html += "<img src='http://image.apartmentguide.com#{path}' "
         html += "width='#{@imageWidth}px' height='105px'></a>"
-        console.log(html)
         $gallery.append(html)
 
     @imageCount = ->
-      "#{@current}/#{@total}"
+      "#{@current()}/#{@total()}"
 
     @next = ->
-      image = @current
-      unless image == @total
+      image = @current()
+      unless image == @total()
         @browse('right')
         @current(image+1)
         @select('imageCounterSelector').html(@imageCount())
 
     @previous = ->
-      image = @current
+      image = @current()
       unless image == 1
         @browse('left')
         @current(image-1)
@@ -50,16 +51,14 @@ define [
     @browse = (direction) ->
       options = switch direction
                 when 'left'
-                 right: "-=#{@attr.image_width}px"
+                  right: "-=#{@image_width}px"
                 else
-                  right: "+=#{@attr.image_width}px"
-      @attr.processing = true
-      @select('gallerySelector')
-      .animate options, 400, ->
-        @attr.processing = false;
+                  right: "+=#{@image_width}px"
+      @processing = true
+      @select('gallerySelector').animate options, 400, ->
+        @processing = false;
 
-    @on @leftHotspotSelector, 'click', @previous
-    @on @rightHotspotSelector, 'click', @next
+
 
     @after 'initialize', ->
       @data          = @$node.data('photoplus')
@@ -68,6 +67,11 @@ define [
       @imageWidth    = @$node.width()
       @photoplusId   = @$node.attr('id')
       @resultId      = @$node.closest('.result').attr('id')
+
       @$node.closest('.result').on 'mouseenter', =>
         @setupGallery()
+
+      @on 'click',
+        rightHotspotSelector: @next
+        leftHotspotSelector: @previous
 
