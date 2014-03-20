@@ -25,7 +25,7 @@ define [
     @setupGallery = ->
       @select('imageCounterSelector').html(@imageCount())
       $gallery = @select('gallerySelector')
-      $gallery.width(@total * @imageWidth);
+      $gallery.width(@galleryWidth)
 
       $(@paths).each (index, path) =>
         html = "<a href='#{@href}'>"
@@ -68,6 +68,7 @@ define [
       @paths         = @data['photo_urls'] || []
       @href          = @$node.find('a').attr('href')
       @imageWidth    = @$node.width()
+      @galleryWidth  = @imageWidth * @total()
       @photoplusId   = @$node.attr('id')
       @resultId      = @$node.closest('.result').attr('id')
 
