@@ -16,7 +16,6 @@ define [
       currentImage         : 1
 
     @current = (image = @attr.currentImage) ->
-      console.log(image)
       @attr.currentImage = 0 if @total() == 0
       @attr.currentImage = image
 
@@ -37,12 +36,10 @@ define [
       $gallery.find("img:first").addClass('current')
 
     @imageCount = ->
-      console.log("#{@current()}/#{@total()}")
       "#{@current()}/#{@total()}"
 
     @next = ->
       image = @current()
-      console.log("next", image)
       unless image == @total()
         @browse 'right', =>
           @current(image += 1)
