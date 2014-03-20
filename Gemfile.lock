@@ -1,4 +1,5 @@
 GEM
+  remote: https://rubygems.org/
   specs:
     columnize (0.3.6)
     debugger (1.6.5)
