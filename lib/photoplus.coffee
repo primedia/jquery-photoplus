@@ -16,6 +16,7 @@ define [
       currentImage         : 1
 
     @current = (image = @attr.currentImage) ->
+      console.log(image)
       @attr.currentImage = 0 if @total() == 0
       @attr.currentImage = image
 
@@ -33,21 +34,29 @@ define [
         html += "width='#{@imageWidth}px' height='105px'></a>"
         $gallery.append(html)
 
+      $gallery.find("img:first").addClass('current')
+
     @imageCount = ->
+      console.log("#{@current()}/#{@total()}")
       "#{@current()}/#{@total()}"
 
     @next = ->
       image = @current()
+      console.log("next", image)
       unless image == @total()
         @browse 'right', =>
-          @current(image+1)
+          @current(image += 1)
+          @select('gallerySelector').find('img.current').removeClass('current')
+          @select('gallerySelector').find("a:nth-child(#{image}) img").addClass('current')
           @select('imageCounterSelector').html(@imageCount())
 
     @previous = ->
       image = @current()
       unless image == 1
         @browse 'left', =>
-          @current(image-1)
+          @current(image -= 1)
+          @select('gallerySelector').find('img.current').removeClass('current')
+          @select('gallerySelector').find("a:nth-child(#{image}) img").addClass('current')
           @select('imageCounterSelector').html(@imageCount())
 
     @browse = (direction, cb) ->
