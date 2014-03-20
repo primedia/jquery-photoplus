@@ -2,4 +2,4 @@
 node_modules
 spec/*.js
 spec/javascripts/*.js
-spec/javascripts/vendor/
+spec/javascripts/vendor/bower

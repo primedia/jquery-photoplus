@@ -21,11 +21,11 @@ describe("photoplus", ['jquery', 'jasmine', 'jasmine-jquery', 'photoplus'], func
       imageUrl = "http://image.apartmentguide.com/imgr/0dc84d4fa24ecf6108b58af65ec22aa0/140-105?city=Decatur&property_name=The%20Conservatory%20At%20Druid%20Hills";
       setTimeout((function(_this) {
         return function() {
+          expect($('img:first:visible').attr('src')).toEqual(imageUrl);
           return done();
         };
       })(this), 1000);
-      $('.scrollingHotSpotRight').click();
-      return expect($('img:first:visible').attr('src')).toEqual(imageUrl);
+      return $('.scrollingHotSpotRight').click();
     });
     it("should update the counter", function(done) {
       setTimeout((function(_this) {
