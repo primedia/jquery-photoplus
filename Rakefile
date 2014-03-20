@@ -18,11 +18,11 @@ desc "Compile coffeescript files"
 task :brew do
   puts "Waiting for coffee to brew..."
   system "coffee --compile --bare ."
+  system "cp lib/*.js spec/javascripts/"
   puts "Scripts compiled."
 end
 
 desc "Satisfy dependencies"
 task :install do
   system "bower install"
-  system "cp jquery.photoplus.js spec/javascripts/jquery.photoplus.js"
 end
