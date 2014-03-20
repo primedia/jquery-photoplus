@@ -9,7 +9,6 @@ require.config({
     "jquery" : "vendor/bower/jquery/jquery",
     "flight" : "vendor/bower/flight",
     "jasmine" : "vendor/bower/jasmine/lib/jasmine-core/jasmine",
-    "jasmine-jquery" : "vendor/jasmine-jquery",
-    "photoplus" : "jquery.photoplus"
+    "jasmine-jquery" : "vendor/jasmine-jquery"
   }
 });
