@@ -23,7 +23,6 @@ define [
       @paths.length
 
     @setupGallery = ->
-      @select('imageCounterSelector').html(@imageCount())
       $gallery = @select('gallerySelector')
       $gallery.width(@galleryWidth)
 
@@ -78,6 +77,7 @@ define [
       @photoplusId   = @$node.attr('id')
       @resultId      = @$node.closest('.result').attr('id')
 
+      @select('imageCounterSelector').html(@imageCount())
 
       @$node.closest('.result').on 'mouseenter', =>
         @setupGallery()
