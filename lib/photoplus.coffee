@@ -41,22 +41,23 @@ define [
     @next = ->
       image = @current()
       unless image == @total()
-        @browse 'right', =>
-          @current(image += 1)
-          @select('gallerySelector').find('img.current').removeClass('current')
-          @select('gallerySelector').find("a:nth-child(#{image}) img").addClass('current')
-          @select('imageCounterSelector').html(@imageCount())
+        @current(image += 1)
+        @updateCounter(image)
+        @browse 'right'
 
     @previous = ->
       image = @current()
       unless image == 1
-        @browse 'left', =>
-          @current(image -= 1)
-          @select('gallerySelector').find('img.current').removeClass('current')
-          @select('gallerySelector').find("a:nth-child(#{image}) img").addClass('current')
-          @select('imageCounterSelector').html(@imageCount())
+        @current(image -= 1)
+        @updateCounter(image)
+        @browse 'left'
 
-    @browse = (direction, cb) ->
+    @updateCounter = (num) ->
+      @select('gallerySelector').find('img.current').removeClass('current')
+      @select('gallerySelector').find("a:nth-child(#{num}) img").addClass('current')
+      @select('imageCounterSelector').html(@imageCount())
+
+    @browse = (direction) ->
       unless @processing
         @processing = true
         options = switch direction
@@ -67,7 +68,6 @@ define [
 
         @select('gallerySelector').animate options, 400, =>
           @processing = false
-          cb()
 
     @after 'initialize', ->
       @data          = @$node.data('photoplus')
