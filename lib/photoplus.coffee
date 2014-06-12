@@ -14,6 +14,8 @@ define [
       imageCounterSelector : ".scroll_image_counter"
       processing           : false
       currentImage         : 1
+      offset               : 5
+      imagesToLoad         : 3
 
     @current = (image = @attr.currentImage) ->
       @attr.currentImage = 0 if @total() == 0
@@ -42,6 +44,8 @@ define [
       unless image == @total()
         @current(image += 1)
         @updateCounter(image)
+        if @attr.currentImage + 2 == @attr.offset
+          @getMoreImages()
         @browse 'right'
 
     @previous = ->
@@ -55,6 +59,17 @@ define [
       @select('gallerySelector').find('img.current').removeClass('current')
       @select('gallerySelector').find("a:nth-child(#{num}) img").addClass('current')
       @select('imageCounterSelector').html(@imageCount())
+
+    @getMoreImages = ->
+      $gallery = @select('gallerySelector')
+
+      $(@paths[@attr.offset..@attr.offset + @attr.imagesToLoad - 1]).each (index, path) =>
+        html = "<a href='#{@href}'>"
+        html += "<img src='http://image.apartmentguide.com#{path}' "
+        html += "width='#{@imageWidth}px' height='105px'></a>"
+        $gallery.append(html)
+
+      @attr.offset += @attr.imagesToLoad
 
     @browse = (direction) ->
       unless @processing
