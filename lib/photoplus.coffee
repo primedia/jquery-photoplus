@@ -20,7 +20,7 @@ define [
       @attr.currentImage = image
 
     @total = ->
-      @paths.length
+      @data['photo_urls'].length
 
     @setupGallery = ->
       $gallery = @select('gallerySelector')
