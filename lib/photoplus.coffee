@@ -17,8 +17,8 @@ define [
       offset               : 5
       imagesToLoad         : 3
 
-    @current = (image = @attr.currentImage) ->
-      @attr.currentImage = 0 if @total() == 0
+    @setCurrentImage = (image) ->
+      console.log("currentImage = #{image}")
       @attr.currentImage = image
 
     @total = ->
@@ -37,21 +37,21 @@ define [
       $gallery.find("img:first").addClass('current')
 
     @imageCount = ->
-      "#{@current()}/#{@total()}"
+      "#{@attr.currentImage}/#{@total()}"
 
     @next = ->
-      image = @current()
+      image = @attr.currentImage
       unless image == @total()
-        @current(image += 1)
+        @setCurrentImage(image += 1)
         @updateCounter(image)
         if @attr.currentImage + 2 == @attr.offset
           @getMoreImages()
         @browse 'right'
 
     @previous = ->
-      image = @current()
+      image = @attr.currentImage
       unless image == 1
-        @current(image -= 1)
+        @setCurrentImage(image -= 1)
         @updateCounter(image)
         @browse 'left'
 
