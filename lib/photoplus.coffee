@@ -26,7 +26,7 @@ define [
       $gallery = @select('gallerySelector')
       $gallery.width(@galleryWidth)
 
-      $(@paths).each (index, path) =>
+      $(@paths[0..4]).each (index, path) =>
         html = "<a href='#{@href}'>"
         html += "<img src='http://image.apartmentguide.com#{path}' "
         html += "width='#{@imageWidth}px' height='105px'></a>"
