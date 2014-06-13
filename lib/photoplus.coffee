@@ -28,6 +28,9 @@ define [
       $gallery = @select('gallerySelector')
       $gallery.width(@galleryWidth)
 
+      # FIXME: first image is present; remove it to prevent a duplicate
+      $gallery.html('')
+
       $(@paths[0..4]).each (index, path) =>
         html = "<a href='#{@href}'>"
         html += "<img src='http://image.apartmentguide.com#{path}' "
