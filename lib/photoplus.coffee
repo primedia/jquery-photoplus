@@ -1,12 +1,14 @@
 define [
   'jquery',
-  'flight/lib/component'
+  'flight/lib/component',
+  'components/data/with_listing_media'
 ], (
   $,
-  defineComponent
+  defineComponent,
+  withListingMedia
 ) ->
 
-  defineComponent ->
+  photoPlus = ->
     @defaultAttrs
       gallerySelector      : ".scrollableArea",
       leftHotspotSelector  : ".scrollingHotSpotLeft",
@@ -19,25 +21,54 @@ define [
       @attr.currentImage = 0 if @total() == 0
       @attr.currentImage = image
 
+    @dataSelector = ->
+      dataSelectorId = '#photo_plus_result_' + @listingId 
+      $(dataSelectorId)
+
     @total = ->
-      @paths.length
+      @dataSelector().data('num_media')
 
-    @setupGallery = ->
-      $gallery = @select('gallerySelector')
-      $gallery.width(@galleryWidth)
+    @includeFloorplans = ->
+      result = @dataSelector().data('floorplans_flag')
+      Boolean(result)
 
-      $(@paths).each (index, path) =>
+    @gallery = ->
+      @select('gallerySelector')
+
+    # append remaining photos to the current listing's photo gallery
+    # but only if the gallery only has the first photo, 
+    # which is already visible 
+    @populateGallery = (media) ->
+      @gallery().width(@galleryWidth)
+
+      return if @galleryPopulated()
+
+      if @includeFloorplans 
+       photos = media.photos.concat(media.floorplans)
+      else
+       photos = media.photos
+
+      # append all photos, but don't append the first photo again
+      $(photos[1..]).each (index, photo) => 
         html = "<a href='#{@href}'>"
-        html += "<img src='http://image.apartmentguide.com#{path}' "
+        html += "<img src='http://image.apartmentguide.com#{photo.path}' "
         html += "width='#{@imageWidth}px' height='105px'></a>"
-        $gallery.append(html)
+        @gallery().append(html)
 
-      $gallery.find("img:first").addClass('current')
+      @gallery().find("img:first").addClass('current')
+
+    @galleryPhotoCount = ->
+      @gallery().find('a').length
+
+    @galleryPopulated = ->
+      @galleryPhotoCount() > 1
 
     @imageCount = ->
       "#{@current()}/#{@total()}"
 
     @next = ->
+      @getPhotoPlusMedia(@listingId) unless @galleryPopulated()
+
       image = @current()
       unless image == @total()
         @current(image += 1)
@@ -69,20 +100,18 @@ define [
           @processing = false
 
     @after 'initialize', ->
-      @data          = @$node.data('photoplus')
-      @paths         = @data['photo_urls'] || []
       @href          = @$node.find('a').attr('href')
       @imageWidth    = @$node.width()
+      @listingId     = @$node.closest('.result').attr('id').split("_")[1]
       @galleryWidth  = @imageWidth * @total()
-      @photoplusId   = @$node.attr('id')
-      @resultId      = @$node.closest('.result').attr('id')
 
       @select('imageCounterSelector').html(@imageCount())
-
-      @$node.closest('.result').on 'mouseenter', =>
-        @setupGallery()
 
       @on 'click',
         rightHotspotSelector: @next
         leftHotspotSelector: @previous
 
+      @on 'infoWindowDataAvailable',
+        @select('imageCounterSelector').html(@imageCount())
+
+  defineComponent photoPlus, withListingMedia
