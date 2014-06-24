@@ -18,6 +18,8 @@ define [
       currentImage         : 1
       resultSelector       : '#photo_plus_result_'
       pinSelector          : '#photo_plus_pin_'
+      offset               : 5
+      imagesToLoad         : 3
 
     @current = (image = @attr.currentImage) ->
       @attr.currentImage = 0 if @total() == 0
@@ -46,16 +48,17 @@ define [
 
       return if @galleryPopulated()
 
-      if @includeFloorplans
-       photos = media.photos.concat(media.floorplans)
+      if @includeFloorplans 
+       @photos = media.photos.concat(media.floorplans)
       else
-       photos = media.photos
+       @photos = media.photos
 
       # append all photos, but don't append the first photo again
-      $(photos[1..]).each (index, photo) =>
+      $(@photos[1..4]).each (index, photo) => 
         html = "<a href='#{@href}'>"
         html += "<img src='http://image.apartmentguide.com#{photo.path}' "
         html += "width='#{@imageWidth}px' height='105px'></a>"
+
         @gallery().append(html)
 
       @gallery().find("img:first").addClass('current')
@@ -76,6 +79,9 @@ define [
       unless image == @total()
         @current(image += 1)
         @updateCounter(image)
+        # when I get to the (offset -2)th image, get more images before user gets to the end of the set of images already fetched
+        if @attr.currentImage + 2 == @attr.offset
+          @getMoreImages()
         @browse 'right'
 
     @previous = ->
@@ -89,6 +95,16 @@ define [
       @select('gallerySelector').find('img.current').removeClass('current')
       @select('gallerySelector').find("a:nth-child(#{num}) img").addClass('current')
       @select('imageCounterSelector').html(@imageCount())
+
+    @getMoreImages = ->
+      $(@photos[@attr.offset..@attr.offset + @attr.imagesToLoad - 1]).each (index, photo) =>
+        html = "<a href='#{@href}'>"
+        html += "<img src='http://image.apartmentguide.com#{photo.path}' "
+        html += "width='#{@imageWidth}px' height='105px'></a>"
+
+        @gallery().append(html)
+
+      @attr.offset += @attr.imagesToLoad
 
     @browse = (direction) ->
       unless @processing
