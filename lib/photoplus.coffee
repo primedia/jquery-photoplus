@@ -16,14 +16,17 @@ define [
       imageCounterSelector : ".scroll_image_counter"
       processing           : false
       currentImage         : 1
+      resultSelector       : '#photo_plus_result_'
+      pinSelector          : '#photo_plus_pin_'
 
     @current = (image = @attr.currentImage) ->
       @attr.currentImage = 0 if @total() == 0
       @attr.currentImage = image
 
     @dataSelector = ->
-      dataSelectorId = '#photo_plus_result_' + @listingId 
-      $(dataSelectorId)
+      resultSelector = $( @attr.resultSelector + @listingId )
+      pintSelector   = @attr.pinSelector + @listingId
+      if resultSelector && resultSelector.length > 0 then resultSelector else $(pintSelector)
 
     @total = ->
       @dataSelector().data('num_media')
@@ -36,20 +39,20 @@ define [
       @select('gallerySelector')
 
     # append remaining photos to the current listing's photo gallery
-    # but only if the gallery only has the first photo, 
-    # which is already visible 
+    # but only if the gallery only has the first photo,
+    # which is already visible
     @populateGallery = (media) ->
       @gallery().width(@galleryWidth)
 
       return if @galleryPopulated()
 
-      if @includeFloorplans 
+      if @includeFloorplans
        photos = media.photos.concat(media.floorplans)
       else
        photos = media.photos
 
       # append all photos, but don't append the first photo again
-      $(photos[1..]).each (index, photo) => 
+      $(photos[1..]).each (index, photo) =>
         html = "<a href='#{@href}'>"
         html += "<img src='http://image.apartmentguide.com#{photo.path}' "
         html += "width='#{@imageWidth}px' height='105px'></a>"
@@ -110,8 +113,5 @@ define [
       @on 'click',
         rightHotspotSelector: @next
         leftHotspotSelector: @previous
-
-      @on 'infoWindowDataAvailable',
-        @select('imageCounterSelector').html(@imageCount())
 
   defineComponent photoPlus, withListingMedia
