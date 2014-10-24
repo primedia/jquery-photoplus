@@ -119,7 +119,7 @@ define [
         @select('gallerySelector').animate options, 400, =>
           @processing = false
 
-    @after 'initialize', (data) ->
+    @after 'initialize', ->
       @href          = @$node.find('a').attr('href')
       @imageWidth    = @$node.width()
       @listingId     = @$node.closest('.result').attr('id').split("_")[1]
