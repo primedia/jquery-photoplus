@@ -8,7 +8,7 @@ describe("photoplus", ['jquery', 'jasmine', 'jasmine-jquery', 'jquery.photoplus'
       return expect($().photoplus).toBeDefined();
     });
   });
-  return describe("gallery browsing", function() {
+  describe("gallery browsing", function() {
     beforeEach(function() {
       $(".photoplus").photoplus();
       return $('.result').trigger('mouseenter');
@@ -60,6 +60,19 @@ describe("photoplus", ['jquery', 'jasmine', 'jasmine-jquery', 'jquery.photoplus'
       setTimeout(done, 1000);
       $('.scrollingHotSpotLeft').click();
       return expect($(".scroll_image_counter").text()).toEqual("4/4");
+    });
+  });
+  return describe("custom count format", function() {
+    beforeEach(function() {
+      return $(".photoplus").photoplus({
+        imageCountFormat: ':current of :total'
+      });
+    });
+    afterEach(function() {
+      return $('').unphotoplus();
+    });
+    return it("should set the image count", function() {
+      return expect($(".scroll_image_counter").text()).toEqual("1 of 4");
     });
   });
 });

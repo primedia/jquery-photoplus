@@ -53,3 +53,13 @@ describe "photoplus", ['jquery', 'jasmine', 'jasmine-jquery', 'jquery.photoplus'
       $('.scrollingHotSpotLeft').click()
       expect( $(".scroll_image_counter").text() ).toEqual("4/4")
       # This actually is not a feature [yet]
+
+  describe "custom count format", ->
+    beforeEach ->
+      $(".photoplus").photoplus({ imageCountFormat: ':current of :total' })
+
+    afterEach ->
+      $('').unphotoplus()
+
+    it "should set the image count", ->
+      expect( $(".scroll_image_counter").text() ).toEqual("1 of 4")

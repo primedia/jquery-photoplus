@@ -20,6 +20,7 @@ define [
       pinSelector          : '#photo_plus_pin_'
       offset               : 5
       imagesToLoad         : 3
+      imageCountFormat     : ':current/:total'
 
     @current = (image = @attr.currentImage) ->
       @attr.currentImage = 0 if @total() == 0
@@ -70,7 +71,7 @@ define [
       @galleryPhotoCount() > 1
 
     @imageCount = ->
-      "#{@current()}/#{@total()}"
+      @attr.imageCountFormat.replace(":current", @current()).replace(":total", @total())
 
     @next = ->
       @getPhotoPlusMedia(@listingId) unless @galleryPopulated()
