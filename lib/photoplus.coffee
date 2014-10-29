@@ -8,8 +8,6 @@ define [
   withListingMedia
 ) ->
 
-  SERVER_SIZE = '180-180'
-
   photoPlus = ->
     @defaultAttrs
       gallerySelector      : ".scrollableArea",
@@ -23,6 +21,7 @@ define [
       offset               : 5
       imagesToLoad         : 3
       imageCountFormat     : ':current/:total'
+      photoPlusDimensions  : '180-180'
 
     @current = (image = @attr.currentImage) ->
       @attr.currentImage = 0 if @total() == 0
@@ -51,20 +50,21 @@ define [
 
       return if @galleryPopulated()
 
-      if @includeFloorplans
-        @photos = media.photos.concat(media.floorplans)
-      else
-        @photos = media.photos
+      @photos = media.photos.concat(media.floorplans) if @includeFloorplans
 
       # append all photos, but don't append the first photo again
       $(@photos[1..4]).each (index, photo) =>
         html = "<a href='#{@href}'>"
-        html += "<img src='http://image.apartmentguide.com#{photo.path}#{SERVER_SIZE}' "
+        html += "<img src='http://image.apartmentguide.com#{@addSize(photo.path)}' "
         html += "width='#{@imageWidth}px' height='105px'></a>"
 
         @gallery().append(html)
 
       @gallery().find("img:first").addClass('current')
+
+    @addSize = (path) ->
+      pathWithSlash = if path.substr(-1) == '/' then path else "#{path}/"
+      "#{pathWithSlash}#{@attr.photoPlusDimensions}"
 
     @galleryPhotoCount = ->
       @gallery().find('a').length
@@ -102,7 +102,7 @@ define [
     @getMoreImages = ->
       $(@photos[@attr.offset..@attr.offset + @attr.imagesToLoad - 1]).each (index, photo) =>
         html = "<a href='#{@href}'>"
-        html += "<img src='http://image.apartmentguide.com#{photo.path}' "
+        html += "<img src='http://image.apartmentguide.com#{@addSize(photo.path)}' "
         html += "width='#{@imageWidth}px' height='105px'></a>"
 
         @gallery().append(html)
