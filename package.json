@@ -1,6 +1,6 @@
 {
   "name": "jquery-photoplus",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "jquery-photoplus plugin",
   "homepage": "https://github.com/primedia/preserves",
   "jam": {
@@ -17,9 +17,12 @@
   },
   "repositories": [
     {
-        "type": "git",
-        "url": "https://github.com/primedia/preserves.git"
+      "type": "git",
+      "url": "https://github.com/primedia/preserves.git"
     }
   ],
-  "github": "https://github.com/primedia/preserves.git"
+  "github": "https://github.com/primedia/preserves.git",
+  "devDependencies": {
+    "gulp-release-tasks": "0.0.3"
+  }
 }
