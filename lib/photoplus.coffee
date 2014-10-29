@@ -49,13 +49,13 @@ define [
 
       return if @galleryPopulated()
 
-      if @includeFloorplans 
-       @photos = media.photos.concat(media.floorplans)
+      if @includeFloorplans
+        @photos = media.photos.concat(media.floorplans)
       else
-       @photos = media.photos
+        @photos = media.photos
 
       # append all photos, but don't append the first photo again
-      $(@photos[1..4]).each (index, photo) => 
+      $(@photos[1..4]).each (index, photo) =>
         html = "<a href='#{@href}'>"
         html += "<img src='http://image.apartmentguide.com#{photo.path}' "
         html += "width='#{@imageWidth}px' height='105px'></a>"
@@ -111,10 +111,10 @@ define [
       unless @processing
         @processing = true
         options = switch direction
-                  when 'left'
-                    right: "-=#{@imageWidth}px"
-                  else
-                    right: "+=#{@imageWidth}px"
+          when 'left'
+            right: "-=#{@imageWidth}px"
+          else
+            right: "+=#{@imageWidth}px"
 
         @select('gallerySelector').animate options, 400, =>
           @processing = false
