@@ -8,6 +8,8 @@ define [
   withListingMedia
 ) ->
 
+  SERVER_SIZE = '180-180'
+
   photoPlus = ->
     @defaultAttrs
       gallerySelector      : ".scrollableArea",
@@ -57,7 +59,7 @@ define [
       # append all photos, but don't append the first photo again
       $(@photos[1..4]).each (index, photo) =>
         html = "<a href='#{@href}'>"
-        html += "<img src='http://image.apartmentguide.com#{photo.path}' "
+        html += "<img src='http://image.apartmentguide.com#{photo.path}#{SERVER_SIZE}' "
         html += "width='#{@imageWidth}px' height='105px'></a>"
 
         @gallery().append(html)
