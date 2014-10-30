@@ -21,7 +21,7 @@ define [
       offset               : 5
       imagesToLoad         : 3
       imageCountFormat     : ':current/:total'
-      photoPlusDimensions  : '180-180'
+      dimensions           : '180-180'
 
     @current = (image = @attr.currentImage) ->
       @attr.currentImage = 0 if @total() == 0
@@ -64,7 +64,7 @@ define [
 
     @addSize = (path) ->
       pathWithSlash = if path.substr(-1) == '/' then path else "#{path}/"
-      "#{pathWithSlash}#{@attr.photoPlusDimensions}"
+      "#{pathWithSlash}#{@attr.dimensions}"
 
     @galleryPhotoCount = ->
       @gallery().find('a').length
