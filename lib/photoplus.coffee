@@ -75,8 +75,13 @@ define [
     @imageCount = ->
       @attr.imageCountFormat.replace(":current", @current()).replace(":total", @total())
 
+    @getPhotoPlusMedia = (listingId) ->
+      ListingMedia.get listingId, (media) =>
+        @populateGallery(media)
+
     @next = ->
-      @getPhotoPlusMedia(@listingId) unless @galleryPopulated()
+      unless @galleryPopulated()
+        @trigger 'uiWantsListingMedia', @listingId
 
       image = @current()
       unless image == @total()
@@ -132,5 +137,8 @@ define [
       @on 'click',
         rightHotspotSelector: @next
         leftHotspotSelector: @previous
+
+      @on 'dataListingMediaReady', (event, data) ->
+        @populateGallery(data)
 
   defineComponent photoPlus, withListingMedia
