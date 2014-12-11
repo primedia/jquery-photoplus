@@ -81,7 +81,7 @@ define [
 
     @next = ->
       unless @galleryPopulated()
-        @trigger 'uiWantsListingMedia', @listingId
+        @trigger 'uiWantsListingMedia', { listingId: @listingId }
 
       image = @current()
       unless image == @total()
