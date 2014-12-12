@@ -1,11 +1,9 @@
 define [
-  'jquery',
-  'flight/lib/component',
-  'components/data/with_listing_media'
+  'jquery'
+  'flight/lib/component'
 ], (
   $,
-  defineComponent,
-  withListingMedia
+  defineComponent
 ) ->
 
   photoPlus = ->
@@ -29,8 +27,8 @@ define [
 
     @dataSelector = ->
       resultSelector = $( @attr.resultSelector + @listingId )
-      pintSelector   = @attr.pinSelector + @listingId
-      if resultSelector && resultSelector.length > 0 then resultSelector else $(pintSelector)
+      pinSelector   = @attr.pinSelector + @listingId
+      if resultSelector && resultSelector.length > 0 then resultSelector else $(pinSelector)
 
     @total = ->
       @dataSelector().data('num_media')
@@ -76,7 +74,8 @@ define [
       @attr.imageCountFormat.replace(":current", @current()).replace(":total", @total())
 
     @next = ->
-      @getPhotoPlusMedia(@listingId) unless @galleryPopulated()
+      unless @galleryPopulated()
+        @trigger 'uiWantsListingMedia', { @listingId }
 
       image = @current()
       unless image == @total()
@@ -133,4 +132,7 @@ define [
         rightHotspotSelector: @next
         leftHotspotSelector: @previous
 
-  defineComponent photoPlus, withListingMedia
+      @on 'dataListingMedia', (event, data) ->
+        @populateGallery(data)
+
+  defineComponent photoPlus
