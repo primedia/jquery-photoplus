@@ -27,8 +27,8 @@ define [
 
     @dataSelector = ->
       resultSelector = $( @attr.resultSelector + @listingId )
-      pintSelector   = @attr.pinSelector + @listingId
-      if resultSelector && resultSelector.length > 0 then resultSelector else $(pintSelector)
+      pinSelector   = @attr.pinSelector + @listingId
+      if resultSelector && resultSelector.length > 0 then resultSelector else $(pinSelector)
 
     @total = ->
       @dataSelector().data('num_media')
