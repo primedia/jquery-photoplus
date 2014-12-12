@@ -1,11 +1,9 @@
 define [
-  'jquery',
-  'flight/lib/component',
-  'components/data/with_listing_media'
+  'jquery'
+  'flight/lib/component'
 ], (
   $,
-  defineComponent,
-  withListingMedia
+  defineComponent
 ) ->
 
   photoPlus = ->
@@ -75,10 +73,6 @@ define [
     @imageCount = ->
       @attr.imageCountFormat.replace(":current", @current()).replace(":total", @total())
 
-    @getPhotoPlusMedia = (listingId) ->
-      ListingMedia.get listingId, (media) =>
-        @populateGallery(media)
-
     @next = ->
       unless @galleryPopulated()
         @trigger 'uiWantsListingMedia', { listingId: @listingId }
@@ -141,4 +135,4 @@ define [
       @on 'dataListingMediaReady', (event, data) ->
         @populateGallery(data)
 
-  defineComponent photoPlus, withListingMedia
+  defineComponent photoPlus
