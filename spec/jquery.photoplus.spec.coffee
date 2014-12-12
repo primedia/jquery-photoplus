@@ -41,7 +41,7 @@ describe "photoplus", ['jquery', 'jasmine', 'jasmine-jquery', 'jquery.photoplus'
         done()
       , 2000
       $('.scrollingHotSpotRight').click()
-      @node.trigger('dataListingMediaReady', media)
+      @node.trigger('dataListingMedia', media)
 
     it "should update the counter", (done) ->
       setTimeout =>

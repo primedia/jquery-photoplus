@@ -75,7 +75,7 @@ define [
 
     @next = ->
       unless @galleryPopulated()
-        @trigger 'uiWantsListingMedia', { listingId: @listingId }
+        @trigger 'uiWantsListingMedia', { @listingId }
 
       image = @current()
       unless image == @total()
@@ -132,7 +132,7 @@ define [
         rightHotspotSelector: @next
         leftHotspotSelector: @previous
 
-      @on 'dataListingMediaReady', (event, data) ->
+      @on 'dataListingMedia', (event, data) ->
         @populateGallery(data)
 
   defineComponent photoPlus

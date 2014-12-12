@@ -53,7 +53,7 @@
           };
         })(this), 2000);
         $('.scrollingHotSpotRight').click();
-        return this.node.trigger('dataListingMediaReady', media);
+        return this.node.trigger('dataListingMedia', media);
       });
       it("should update the counter", function(done) {
         setTimeout((function(_this) {
