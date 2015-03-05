@@ -17,7 +17,7 @@ define [
       resultSelector       : '#photo_plus_result_'
       pinSelector          : '#photo_plus_pin_'
       offset               : 5
-      imagesToLoad         : 3
+      imagesToLoad         : 4
       imageCountFormat     : ':current/:total'
       dimensions           : '180-180'
 
@@ -52,8 +52,9 @@ define [
 
       # append all photos, but don't append the first photo again
       $(@photos[1..4]).each (index, photo) =>
+        imageServer = @pickServer(index);
         html = "<a href='#{@href}'>"
-        html += "<img src='http://image.apartmentguide.com#{@addSize(photo.path)}' "
+        html += "<img src='#{imageServer}#{@addSize(photo.path)}' "
         html += "width='#{@imageWidth}px' height='105px'></a>"
 
         @gallery().append(html)
@@ -100,8 +101,9 @@ define [
 
     @getMoreImages = ->
       $(@photos[@attr.offset..@attr.offset + @attr.imagesToLoad - 1]).each (index, photo) =>
+        imageServer = @pickServer(index);
         html = "<a href='#{@href}'>"
-        html += "<img src='http://image.apartmentguide.com#{@addSize(photo.path)}' "
+        html += "<img src='#{imageServer}#{@addSize(photo.path)}' "
         html += "width='#{@imageWidth}px' height='105px'></a>"
 
         @gallery().append(html)
@@ -119,6 +121,13 @@ define [
 
         @select('gallerySelector').animate options, 400, =>
           @processing = false
+
+    @pickServer = (num) ->
+      val = num % 2
+      if val == 0
+        server = 'http://image.apartmentguide.com'
+      else
+        server = 'http://image1.apartmentguide.com'
 
     @after 'initialize', ->
       @href          = @$node.find('a').attr('href')
