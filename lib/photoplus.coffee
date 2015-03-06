@@ -20,6 +20,7 @@ define [
       imagesToLoad         : 4
       imageCountFormat     : ':current/:total'
       dimensions           : '180-180'
+      servers              : ['http://image.apartmentguide.com', 'http://image1.apartmentguide.com']
 
     @current = (image = @attr.currentImage) ->
       @attr.currentImage = 0 if @total() == 0
@@ -123,11 +124,7 @@ define [
           @processing = false
 
     @pickServer = (num) ->
-      val = num % 2
-      if val == 0
-        server = 'http://image.apartmentguide.com'
-      else
-        server = 'http://image1.apartmentguide.com'
+      @attr.servers[num % @attr.servers.length]
 
     @after 'initialize', ->
       @href          = @$node.find('a').attr('href')
