@@ -1,9 +1,11 @@
 define [
   'jquery'
   'flight/lib/component'
+  'image-helper'
 ], (
   $,
-  defineComponent
+  defineComponent,
+  imageHelper
 ) ->
 
   photoPlus = ->
@@ -17,7 +19,7 @@ define [
       resultSelector       : '#photo_plus_result_'
       pinSelector          : '#photo_plus_pin_'
       offset               : 5
-      imagesToLoad         : 4
+      imagesToLoad         : 3
       imageCountFormat     : ':current/:total'
       dimensions           : '180-180'
       servers              : ['http://image.apartmentguide.com', 'http://image1.apartmentguide.com']
@@ -53,9 +55,8 @@ define [
 
       # append all photos, but don't append the first photo again
       $(@photos[1..4]).each (index, photo) =>
-        imageServer = @pickServer(index);
         html = "<a href='#{@href}'>"
-        html += "<img src='#{imageServer}#{@addSize(photo.path)}' "
+        html += "<img src='#{imageHelper.url(@addSize(photo.path))}' "
         html += "width='#{@imageWidth}px' height='105px'></a>"
 
         @gallery().append(html)
@@ -102,9 +103,8 @@ define [
 
     @getMoreImages = ->
       $(@photos[@attr.offset..@attr.offset + @attr.imagesToLoad - 1]).each (index, photo) =>
-        imageServer = @pickServer(index);
         html = "<a href='#{@href}'>"
-        html += "<img src='#{imageServer}#{@addSize(photo.path)}' "
+        html += "<img src='#{imageHelper.url(@addSize(photo.path))}' "
         html += "width='#{@imageWidth}px' height='105px'></a>"
 
         @gallery().append(html)
@@ -123,14 +123,12 @@ define [
         @select('gallerySelector').animate options, 400, =>
           @processing = false
 
-    @pickServer = (num) ->
-      @attr.servers[num % @attr.servers.length]
-
     @after 'initialize', ->
       @href          = @$node.find('a').attr('href')
       @imageWidth    = @$node.width()
       @listingId     = @$node.closest('.result').attr('id').split("_")[1]
       @galleryWidth  = @imageWidth * @total()
+      imageHelper.servers = @attr.servers
 
       @select('imageCounterSelector').html(@imageCount())
 
