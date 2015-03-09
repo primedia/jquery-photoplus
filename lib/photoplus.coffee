@@ -22,7 +22,6 @@ define [
       imagesToLoad         : 3
       imageCountFormat     : ':current/:total'
       dimensions           : '180-180'
-      servers              : ['http://image.apartmentguide.com', 'http://image1.apartmentguide.com']
 
     @current = (image = @attr.currentImage) ->
       @attr.currentImage = 0 if @total() == 0
@@ -128,7 +127,6 @@ define [
       @imageWidth    = @$node.width()
       @listingId     = @$node.closest('.result').attr('id').split("_")[1]
       @galleryWidth  = @imageWidth * @total()
-      imageHelper.servers = @attr.servers
 
       @select('imageCounterSelector').html(@imageCount())
 
