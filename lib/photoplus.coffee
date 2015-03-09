@@ -1,9 +1,11 @@
 define [
   'jquery'
   'flight/lib/component'
+  'image-helper'
 ], (
   $,
-  defineComponent
+  defineComponent,
+  imageHelper
 ) ->
 
   photoPlus = ->
@@ -53,7 +55,7 @@ define [
       # append all photos, but don't append the first photo again
       $(@photos[1..4]).each (index, photo) =>
         html = "<a href='#{@href}'>"
-        html += "<img src='http://image.apartmentguide.com#{@addSize(photo.path)}' "
+        html += "<img src='#{imageHelper.url(@addSize(photo.path))}' "
         html += "width='#{@imageWidth}px' height='105px'></a>"
 
         @gallery().append(html)
@@ -101,7 +103,7 @@ define [
     @getMoreImages = ->
       $(@photos[@attr.offset..@attr.offset + @attr.imagesToLoad - 1]).each (index, photo) =>
         html = "<a href='#{@href}'>"
-        html += "<img src='http://image.apartmentguide.com#{@addSize(photo.path)}' "
+        html += "<img src='#{imageHelper.url(@addSize(photo.path))}' "
         html += "width='#{@imageWidth}px' height='105px'></a>"
 
         @gallery().append(html)
