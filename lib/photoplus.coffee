@@ -122,10 +122,13 @@ define [
         @select('gallerySelector').animate options, 400, =>
           @processing = false
 
+    @getListingId = ->
+      @$node.closest('.spotlight, .result').data('listing_id')
+
     @after 'initialize', ->
       @href          = @$node.find('a').attr('href')
       @imageWidth    = @$node.width()
-      @listingId     = @$node.closest('.result').attr('id').split("_")[1]
+      @listingId     = @getListingId()
       @galleryWidth  = @imageWidth * @total()
 
       @select('imageCounterSelector').html(@imageCount())
